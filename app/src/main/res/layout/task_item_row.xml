@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/task_checkbox"
+        android:layout_toRightOf="@+id/task_checkbox"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textSize="20sp"
+        />
+
+    <CheckBox
+        android:id="@+id/task_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/task_checkbox"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/task_checkbox"
+        android:background="@android:drawable/ic_menu_delete"
+        android:padding="20dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

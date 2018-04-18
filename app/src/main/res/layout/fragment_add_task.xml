@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/taskDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/taskName"
+        android:layout_alignLeft="@+id/taskName"
+        android:layout_below="@+id/taskName"
+        android:layout_marginTop="85dp"
+        android:text="Description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <TextView
+        android:id="@+id/taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
+        android:text="Task"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/taskName"
+        android:layout_toEndOf="@+id/taskName"
+        android:layout_alignBottom="@+id/taskName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/taskNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="enter task name"
+            android:singleLine="true"
+            android:textSize="16sp"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/taskDescription"
+        android:layout_alignLeft="@+id/taskDescription"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="125dp"
+        android:background="@android:drawable/editbox_background_normal">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/taskDescriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="start"
+            android:singleLine="false"
+            android:textAlignment="viewStart"
+            android:textSize="15sp"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_save_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/holo_green_light"
+        android:text="save"/>
+
+</RelativeLayout>
