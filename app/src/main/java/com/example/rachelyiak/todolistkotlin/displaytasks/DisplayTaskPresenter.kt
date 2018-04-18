@@ -22,7 +22,6 @@ class DisplayTaskPresenter(dataView2: DisplayTaskView) : Presenter(dataView2) {
     }
 
     fun markTask(task : Task) {
-
         val markTaskObservable : Observable<Task>
         try {
             markTaskObservable = TaskRepositoryImpl().markTask(task)
@@ -34,20 +33,20 @@ class DisplayTaskPresenter(dataView2: DisplayTaskView) : Presenter(dataView2) {
         } catch (e: Error) {
             dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_MARK_FAIL)
         }
-
     }
 
     fun deleteTask(task: Task) {
-        do {
-            try {
-                TaskRepositoryImpl().deleteTask(task)
-            } catch (e: Error) {
-                dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_DELETE_FAIL)
-                break
-            }
-            dataView.onTaskUpdated(ToastConstants.INFO_TASK_DELETED, task)
-            loadTasks()
-        } while (false)
+        val deleteTaskObservable: Observable<Boolean>
+        try {
+            deleteTaskObservable = TaskRepositoryImpl().deleteTask(task)
+            deleteTaskObservable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe{
+                        DeleteTaskSubscriber(dataView, task).onNext(it)
+                    }
+        } catch (e: Error) {
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_DELETE_FAIL)
+        }
     }
 
 
@@ -64,4 +63,21 @@ class DisplayTaskPresenter(dataView2: DisplayTaskView) : Presenter(dataView2) {
             dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_MARK_FAIL)
         }
     }
+
+    private class DeleteTaskSubscriber(val dataView: DisplayTaskView, val task: Task) : DefaultSubscriber<Boolean>() {
+        override fun onNext(success: Boolean) {
+            if (success) {
+                dataView.onTaskUpdated(ToastConstants.INFO_TASK_DELETED, task)
+                DisplayTaskPresenter(dataView).loadTasks()
+            } else onError(Error())
+        }
+
+        override fun onComplete() {
+        }
+
+        override fun onError(t: Throwable?) {
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_DELETE_FAIL)
+        }
+    }
+
 }

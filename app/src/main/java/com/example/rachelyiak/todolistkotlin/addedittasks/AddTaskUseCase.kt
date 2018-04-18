@@ -10,7 +10,7 @@ class AddTaskUseCase(private val repositoryImpl: TaskRepositoryImpl, private val
 
     lateinit var taskRepository : TaskRepository
 
-    //TODO figure out how to get tasks etc to use here
+    //TODO figure out how to get tasks etc to use here OR delete this if not going to use
 
     fun saveTask(subscriber: DefaultSubscriber<Void>) {
 

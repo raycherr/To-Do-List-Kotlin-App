@@ -36,6 +36,8 @@ class TaskRepositoryImpl : TaskRepository {
     override fun markTask(task: Task) : Observable<Task> {
         val taskRealmObj = realm?.where(Task::class.java)?.equalTo(KeyConstants.KEY_ID,task.id)?.findFirst()
 
+
+        //TODO is it okay to leave observable like this? i think need to catch exception like in deleteTask
         realm?.executeTransaction({
             taskRealmObj?.completed = !taskRealmObj!!.completed
             realm?.copyToRealmOrUpdate(taskRealmObj)
@@ -44,11 +46,17 @@ class TaskRepositoryImpl : TaskRepository {
         return Observable.just(taskRealmObj)
     }
 
-    override fun deleteTask(task: Task) {
+    override fun deleteTask(task: Task) : Observable<Boolean> {
         val taskRealmObj = realm?.where(Task::class.java)?.equalTo(KeyConstants.KEY_ID,task.id)?.findFirst()
 
-        realm?.executeTransaction {
-            taskRealmObj?.deleteFromRealm()
+        try {
+            realm?.executeTransaction {
+                taskRealmObj?.deleteFromRealm()
+            }
+        } catch (e : Error) {
+            return Observable.just(false)
         }
+
+        return Observable.just(true)
     }
 }

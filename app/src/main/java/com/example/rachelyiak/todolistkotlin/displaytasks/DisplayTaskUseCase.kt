@@ -6,6 +6,7 @@ import com.example.rachelyiak.todolistkotlin.tasks.TaskRepositoryImpl
 import io.reactivex.Observable
 import io.reactivex.subscribers.DefaultSubscriber
 
+//TODO delete if not using
 interface DisplayTaskUseCase {
 
     fun markTask(task: Task) : Observable<Task> {

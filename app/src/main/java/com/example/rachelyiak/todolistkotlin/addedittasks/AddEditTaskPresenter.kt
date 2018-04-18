@@ -16,7 +16,6 @@ class AddEditTaskPresenter constructor(private val dataView : AddEditTaskView)
 
     fun saveTask(taskName: String, taskDescription: String, context: Context?, taskId : Long?) {
 
-        //TODO now saving this task to DB via REPO -- MOVE TO USECASE then REPO AFTERWARDS?
         do {
             val task = Task()
             task.name = taskName
