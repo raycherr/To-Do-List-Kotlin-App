@@ -2,9 +2,7 @@ package com.example.rachelyiak.todolistkotlin.tasks
 
 import android.util.Log
 import io.reactivex.Observable
-import io.reactivex.internal.operators.observable.ObservableError
 import io.realm.Realm
-import org.reactivestreams.Subscriber
 
 class TaskRepositoryImpl : TaskRepository {
 
