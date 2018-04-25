@@ -92,10 +92,10 @@ class MainActivity : AppCompatActivity() {
             ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE -> Toast.makeText(this, "task cannot be saved, try again later",Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_MARK_FAIL -> Toast.makeText(this, "task is not marked, try again later",Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_DELETE_FAIL -> Toast.makeText(this, "task is not deleted, try again later",Toast.LENGTH_SHORT).show()
-            ToastConstants.INFO_TASK_DELETED -> Toast.makeText(this, "${task!!.name} is deleted",Toast.LENGTH_SHORT).show()
+            ToastConstants.INFO_TASK_DELETED -> Toast.makeText(this, "'${task!!.name}' is deleted",Toast.LENGTH_SHORT).show()
             ToastConstants.INFO_TASK_MARKED -> {
-                if (task!!.completed) Toast.makeText(this, "${task.name} is completed",Toast.LENGTH_SHORT).show()
-                else Toast.makeText(this, "${task.name} is ongoing",Toast.LENGTH_SHORT).show()
+                if (task!!.completed) Toast.makeText(this, "Task: '${task.name}' is completed",Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, "Task: '${task.name}' is ongoing",Toast.LENGTH_SHORT).show()
             }
             else -> Toast.makeText(this, "error somewhere", Toast.LENGTH_SHORT).show()
         }

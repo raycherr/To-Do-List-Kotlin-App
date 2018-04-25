@@ -50,10 +50,12 @@ class DisplayTaskPresenter(dataView2: DisplayTaskView) : Presenter(dataView2) {
     }
 
 
-    private class MarkTaskSubscriber(val dataView: DisplayTaskView) : DefaultSubscriber<Task>() {
-        override fun onNext(task: Task) {
-            dataView.onTaskUpdated(ToastConstants.INFO_TASK_MARKED, task)
-            DisplayTaskPresenter(dataView).loadTasks()
+    private class MarkTaskSubscriber(val dataView: DisplayTaskView) : DefaultSubscriber<Task?>() {
+        override fun onNext(task: Task?) {
+            if (task != null) {
+                dataView.onTaskUpdated(ToastConstants.INFO_TASK_MARKED, task)
+                DisplayTaskPresenter(dataView).loadTasks()
+            } else onError(Error())
         }
 
         override fun onComplete() {
@@ -65,11 +67,9 @@ class DisplayTaskPresenter(dataView2: DisplayTaskView) : Presenter(dataView2) {
     }
 
     private class DeleteTaskSubscriber(val dataView: DisplayTaskView, val task: Task) : DefaultSubscriber<Boolean>() {
-        override fun onNext(success: Boolean) {
-            if (success) {
-                dataView.onTaskUpdated(ToastConstants.INFO_TASK_DELETED, task)
-                DisplayTaskPresenter(dataView).loadTasks()
-            } else onError(Error())
+        override fun onNext(t: Boolean) {
+            dataView.onTaskUpdated(ToastConstants.INFO_TASK_DELETED, task)
+            DisplayTaskPresenter(dataView).loadTasks()
         }
 
         override fun onComplete() {
