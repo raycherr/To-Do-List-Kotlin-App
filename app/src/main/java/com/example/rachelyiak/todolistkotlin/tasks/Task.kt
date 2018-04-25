@@ -5,12 +5,10 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
 @RealmClass
-open class Task : RealmObject() {
-
-    @PrimaryKey
-    var id : Long = 0
-    var name: String = ""
-    var description : String = ""
+open class Task(@PrimaryKey var id : Long = 0, var name: String = "", var description : String = "") : RealmObject() {
+//    @PrimaryKey
+    //var id : Long = 0
+    //var name: String = ""
+    //var description : String = ""
     var completed : Boolean = false
-
 }

@@ -14,32 +14,18 @@ abstract class Presenter(val useCase : AddTaskUseCase) {
 class AddEditTaskPresenter constructor(private val dataView : AddEditTaskView)
     : Presenter(useCase = AddTaskUseCase(TaskRepositoryImpl(), Task())){
 
-    fun saveTask(taskName: String, taskDescription: String, context: Context?, taskId : Long?) {
-
+    fun saveTask(task: Task) {
         do {
-            val task = Task()
-            task.name = taskName
-            task.description = taskDescription
-
-            if (taskId != null) {
-                task.id = taskId
-            }
-
-            //if (context != null)
-            //not sure if i need to check such stuff about context
-
             try {
                 //useCase.saveTask(SaveTaskSubscriber(dataView))
                 TaskRepositoryImpl().saveTask(task)
-                // this task already has id, just whether is *0 default for new task* or *an old id for editing task*
+                // this task already has id, just whether is *default 0 for new task* or *an old id for editing task*
             } catch (e: Error) {
                 dataView.onAddTaskFail(ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE)
                 break
             }
-
             dataView.onAddTaskSuccess()
         } while (false)
-
     }
 
     fun haveTaskName(taskName: String) : Boolean {
