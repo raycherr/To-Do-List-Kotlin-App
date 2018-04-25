@@ -8,6 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DefaultSubscriber
 
+//TODO edit this out (refer to addedittaskpresenter)
 abstract class Presenter(val dataView: DisplayTaskView) {
 
     //fun loadTasks()

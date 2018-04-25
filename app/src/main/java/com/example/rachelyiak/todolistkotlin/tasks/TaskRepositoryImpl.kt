@@ -10,8 +10,7 @@ class TaskRepositoryImpl : TaskRepository {
 
     override fun saveTask(task : Task) {
 
-        if (task.id == 0.toLong()) {
-            //id == 0 means default new item coming in
+        if (task.id == 0.toLong()) { //id == 0 means default new item coming in
             var nextId = 1
             if (realm?.where(Task::class.java)?.max(KeyConstants.KEY_ID) != null) {
                 nextId = realm?.where(Task::class.java)?.max(KeyConstants.KEY_ID).toString().toInt() +1
@@ -19,7 +18,7 @@ class TaskRepositoryImpl : TaskRepository {
             task.id = nextId.toLong()
         }
 
-        //TODO make saveTask with RxJava too?
+        //TODO consider changing to RxJava but it works in synchronous now?
         realm?.executeTransaction {
             realm?.copyToRealmOrUpdate(task)
         }

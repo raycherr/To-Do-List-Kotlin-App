@@ -101,27 +101,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // for settings
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        //TODO delete to only appear when long click happened?
-        // or should i just keep it there so it is easier to delete?
-        // and show crosses on all of the tasks, while making floating action button disappear?
-        return when (item.itemId) {
-            R.id.action_edit -> {
-                Log.d("MAIN", "edit is pressed")
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-
-    }
+    // for settings (Commented out till supported)
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//
+//        //TODO delete to only appear when long click happened?
+//        // or should i just keep it there so it is easier to delete?
+//        // and show crosses on all of the tasks, while making floating action button disappear?
+//        return when (item.itemId) {
+//            R.id.action_edit -> {
+//                Log.d("MAIN", "edit is pressed")
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//
+//    }
 }

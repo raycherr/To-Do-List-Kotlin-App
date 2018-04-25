@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.rachelyiak.todolistkotlin.MainActivity
 import com.example.rachelyiak.todolistkotlin.R
 import com.example.rachelyiak.todolistkotlin.tasks.KeyConstants
+import com.example.rachelyiak.todolistkotlin.tasks.Task
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -37,19 +38,13 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
             taskDescription.text = bundle.getString(KeyConstants.KEY_DESCRIPTION)
         }
 
-//        saveBtn.setOnClickListener{
-//            AddEditTaskPresenter(this).saveTask(taskName.text.toString(), taskDescription.text.toString(), context, taskId)
-//            // passing NULL taskId if adding new task
-//        }
-
-        val saveTaskObservable = saveTaskButtonClickObservable()
+        val saveTaskObservable = saveTaskButtonClickObservable(taskId)
 
         saveTaskObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(Schedulers.io()) // placed repo search off the main thread
                 .subscribe {
-                    AddEditTaskPresenter(this).saveTask(it.first,it.second,context,taskId)
-                    // passing NULL taskID if adding new task
+                    AddEditTaskPresenter(this).saveTask(it)
                 }
 
         return root
@@ -63,11 +58,14 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
         (activity as MainActivity).showToast(errorName)
     }
 
-    private fun saveTaskButtonClickObservable(): Observable<Pair<String, String>> {
+    private fun saveTaskButtonClickObservable(taskId : Long?): Observable<Task> {
         return Observable.create { emitter ->
             saveBtn.setOnClickListener{
                 if (AddEditTaskPresenter(this).haveTaskName(taskName.text.toString())) {
-                    emitter.onNext(Pair(taskName.text.toString(),taskDescription.text.toString()))
+
+                    val taskTemp = Task(name = taskName.text.toString(), description = taskDescription.text.toString())
+                    taskTemp.id = taskId ?: 0
+                    emitter.onNext(taskTemp)
                 }
             }
             emitter.setCancellable {
