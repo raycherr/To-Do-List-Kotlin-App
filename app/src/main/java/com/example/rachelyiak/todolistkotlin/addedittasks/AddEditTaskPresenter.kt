@@ -41,7 +41,7 @@ class AddEditTaskPresenter constructor(private val dataView : AddEditTaskView)
     }
 
 
-//
+
 //    private class SaveTaskSubscriber(private val dataView: AddEditTaskView) : DefaultSubscriber<Void>() {
 //
 //        override fun onNext(t: Void?) {
