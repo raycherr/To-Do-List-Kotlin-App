@@ -21,7 +21,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
     lateinit var taskName : TextView
     lateinit var taskDescription : TextView
     private lateinit var saveBtn : Button
-    var taskId : Long? = null
+    private var taskId : Long? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

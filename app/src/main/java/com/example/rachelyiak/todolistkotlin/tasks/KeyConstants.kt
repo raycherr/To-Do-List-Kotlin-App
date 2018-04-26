@@ -1,8 +1,8 @@
 package com.example.rachelyiak.todolistkotlin.tasks
 
 object KeyConstants{
-    val KEY_ID = "id"
-    val KEY_NAME = "name"
-    val KEY_DESCRIPTION = "description"
-    val KEY_COMPLETED = "completed"
+    const val KEY_ID = "id"
+    const val KEY_NAME = "name"
+    const val KEY_DESCRIPTION = "description"
+    const val KEY_COMPLETED = "completed"
 }

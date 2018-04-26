@@ -11,6 +11,7 @@ abstract class Presenter(val useCase : AddTaskUseCase) {
     //fun saveTask(taskName : String, taskDescription: String, context: Context?, taskId : Long? = null)
 }
 
+//TODO get rid of presenter with usecase if not using
 class AddEditTaskPresenter constructor(private val dataView : AddEditTaskView)
     : Presenter(useCase = AddTaskUseCase(TaskRepositoryImpl(), Task())){
 

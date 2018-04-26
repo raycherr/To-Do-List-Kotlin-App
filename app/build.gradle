@@ -47,7 +47,7 @@ dependencies {
 
 
 realm {
-    syncEnabled = true;
+    syncEnabled = true
 }
 
 kotlin {
