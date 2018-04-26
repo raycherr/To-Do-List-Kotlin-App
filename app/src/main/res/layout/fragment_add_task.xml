@@ -13,7 +13,7 @@
         android:layout_alignLeft="@+id/taskName"
         android:layout_below="@+id/taskName"
         android:layout_marginTop="85dp"
-        android:text="Description"
+        android:text="@string/description"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="45dp"
-        android:text="Task"
+        android:text="@string/task"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <android.support.design.widget.TextInputLayout
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:hint="enter task name"
+            android:hint="@string/enter_task_name"
             android:singleLine="true"
             android:textSize="16sp"/>
     </android.support.design.widget.TextInputLayout>
@@ -75,6 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/holo_green_light"
-        android:text="save"/>
+        android:text="@string/save"
+        />
 
 </RelativeLayout>

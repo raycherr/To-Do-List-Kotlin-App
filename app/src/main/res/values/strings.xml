@@ -3,4 +3,21 @@
     <string name="action_edit">Edit</string>
     <string name="tasks_display">Tasks Display</string>
     <string name="add_task">Add Task</string>
+
+    <string name="task">Task</string>
+    <string name="description">Description</string>
+    <string name="enter_task_name">enter task name</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
+    <!-- Toast Strings -->
+    <string name="task_name_cannot_be_empty">task name cannot be empty</string>
+    <string name="task_not_saved_try_again">task cannot be saved, try again later</string>
+    <string name="task_not_marked_try_again">task is not marked, try again later</string>
+    <string name="task_not_deleted_try_again">task is not deleted, try again later</string>
+    <string name="task_deleted">Task: \'%s\' is deleted</string>
+    <string name="task_completed">Task: \'%s\' is completed</string>
+    <string name="task_ongoing">Task: \'%s\' is ongoing</string>
+    <string name="other_error">an error occurred somewhere</string>
+
 </resources>

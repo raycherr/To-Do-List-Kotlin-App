@@ -88,16 +88,16 @@ class MainActivity : AppCompatActivity() {
 
     fun showToast(toastSummary : String, task : Task? = null) {
         when (toastSummary) {
-            ToastConstants.ERROR_TASK_NAME_EMPTY -> Toast.makeText(this,"task name cannot be empty",Toast.LENGTH_SHORT).show()
-            ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE -> Toast.makeText(this, "task cannot be saved, try again later",Toast.LENGTH_SHORT).show()
-            ToastConstants.ERROR_TASK_MARK_FAIL -> Toast.makeText(this, "task is not marked, try again later",Toast.LENGTH_SHORT).show()
-            ToastConstants.ERROR_TASK_DELETE_FAIL -> Toast.makeText(this, "task is not deleted, try again later",Toast.LENGTH_SHORT).show()
-            ToastConstants.INFO_TASK_DELETED -> Toast.makeText(this, "'${task!!.name}' is deleted",Toast.LENGTH_SHORT).show()
+            ToastConstants.ERROR_TASK_NAME_EMPTY -> Toast.makeText(this, getString(R.string.task_name_cannot_be_empty), Toast.LENGTH_SHORT).show()
+            ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE -> Toast.makeText(this, getString(R.string.task_not_saved_try_again), Toast.LENGTH_SHORT).show()
+            ToastConstants.ERROR_TASK_MARK_FAIL -> Toast.makeText(this, getString(R.string.task_not_marked_try_again), Toast.LENGTH_SHORT).show()
+            ToastConstants.ERROR_TASK_DELETE_FAIL -> Toast.makeText(this, getString(R.string.task_not_deleted_try_again), Toast.LENGTH_SHORT).show()
+            ToastConstants.INFO_TASK_DELETED -> Toast.makeText(this, getString(R.string.task_deleted, task!!.name), Toast.LENGTH_SHORT).show()
             ToastConstants.INFO_TASK_MARKED -> {
-                if (task!!.completed) Toast.makeText(this, "Task: '${task.name}' is completed",Toast.LENGTH_SHORT).show()
-                else Toast.makeText(this, "Task: '${task.name}' is ongoing",Toast.LENGTH_SHORT).show()
+                if (task!!.completed) Toast.makeText(this, getString(R.string.task_completed, task.name),Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, getString(R.string.task_ongoing, task.name),Toast.LENGTH_SHORT).show()
             }
-            else -> Toast.makeText(this, "error somewhere", Toast.LENGTH_SHORT).show()
+            else -> Toast.makeText(this, getString(R.string.other_error), Toast.LENGTH_SHORT).show()
         }
     }
 
