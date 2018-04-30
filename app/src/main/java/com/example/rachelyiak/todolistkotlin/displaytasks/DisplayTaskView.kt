@@ -7,5 +7,5 @@ interface DisplayTaskView {
 
     fun onUpdateTaskFail(errorName : String)
 
-    fun onTaskUpdated(infoName: String, task: Task)
+    fun onTaskUpdated(infoName: String, task: Task?)
 }

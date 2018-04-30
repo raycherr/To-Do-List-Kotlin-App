@@ -2,71 +2,194 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/taskDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/taskName"
-        android:layout_alignLeft="@+id/taskName"
-        android:layout_below="@+id/taskName"
-        android:layout_marginTop="85dp"
-        android:text="@string/description"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:id="@+id/taskName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="45dp"
-        android:text="@string/task"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/taskName"
-        android:layout_toEndOf="@+id/taskName"
-        android:layout_alignBottom="@+id/taskName"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        >
+            <TextView
+                android:id="@+id/taskDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/taskName"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/taskName"
+                android:layout_below="@+id/taskName"
+                android:layout_marginTop="85dp"
+                android:text="@string/description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/taskNameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="@string/enter_task_name"
-            android:singleLine="true"
-            android:textSize="16sp"/>
-    </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:id="@+id/taskName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="45dp"
+                android:text="@string/task"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/taskDescription"
-        android:layout_alignLeft="@+id/taskDescription"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="125dp"
-        android:background="@android:drawable/editbox_background_normal">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/taskName"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/taskName"
+                android:layout_toRightOf="@+id/taskName"
+                >
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/taskDescriptionInput"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="start"
-            android:singleLine="false"
-            android:textAlignment="viewStart"
-            android:textSize="15sp"/>
-    </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/taskNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="@string/enter_task_name"
+                    android:singleLine="true"
+                    android:textSize="16sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/taskDescription"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/taskDescription"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="125dp"
+                android:background="@android:drawable/editbox_background_normal">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/taskDescriptionInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="start"
+                    android:singleLine="false"
+                    android:textAlignment="viewStart"
+                    android:textSize="15sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/taskHighlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/taskName"
+                android:layout_alignStart="@+id/taskName"
+                android:layout_below="@+id/taskDescription"
+                android:layout_marginTop="200dp"
+                android:text="@string/color_tag"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <Switch
+                android:id="@+id/taskHighlightSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/taskHighlight"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:switchMinWidth="50dp"
+                />
+
+
+            <!--<RadioGroup-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignBottom="@id/taskColorTag"-->
+                    <!--android:layout_toEndOf="@+id/taskColorTag"-->
+                    <!--android:layout_below="@+id/taskDescription"-->
+                    <!--android:layout_marginEnd="20dp"-->
+                    <!--android:layout_marginTop="190dp"-->
+                    <!--android:layout_marginStart="10dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/radioGroupColor"-->
+                    <!--&gt;-->
+
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/tagRed"-->
+                        <!--style="@android:style/ButtonBar"-->
+                        <!--android:contentDescription="@string/red"-->
+                        <!--android:tag="@string/red"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@android:color/holo_red_light"-->
+                        <!--android:buttonTint="@android:color/white"-->
+                        <!--/>-->
+
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/tagOrange"-->
+                        <!--style="@android:style/ButtonBar"-->
+                        <!--android:contentDescription="@string/orange"-->
+                        <!--android:tag="@string/orange"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_marginStart="10dp"-->
+                        <!--android:background="@android:color/holo_orange_dark"-->
+                        <!--android:buttonTint="@android:color/white"-->
+                        <!--/>-->
+
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/tagBlue"-->
+                        <!--style="@android:style/ButtonBar"-->
+                        <!--android:contentDescription="@string/blue"-->
+                        <!--android:tag="@string/blue"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_marginStart="10dp"-->
+                        <!--android:background="#448aff"-->
+                        <!--android:buttonTint="@android:color/white"-->
+                        <!--/>-->
+
+                    <!--<RadioButton-->
+                        <!--android:id="@+id/tagPurple"-->
+                        <!--style="@android:style/ButtonBar"-->
+                        <!--android:contentDescription="@string/purple"-->
+                        <!--android:tag="@string/purple"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_marginStart="10dp"-->
+                        <!--android:background="@android:color/holo_purple"-->
+                        <!--android:buttonTint="@android:color/white"-->
+                        <!--/>-->
+
+                <!--</RadioGroup>-->
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/taskDueDate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignStart="@+id/taskName"-->
+            <!--android:layout_alignLeft="@+id/taskName"-->
+            <!--android:layout_below="@+id/taskDescription"-->
+            <!--android:layout_marginTop="200dp"-->
+            <!--android:text="@string/due_date"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Title"/>-->
+
+            <!--<CalendarView-->
+            <!--android:id="@+id/calendarView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/taskDueDate"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="50dp"-->
+            <!--/>-->
+
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_save_task"

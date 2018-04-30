@@ -42,6 +42,20 @@ class DisplayTaskPresenter(private val dataView: DisplayTaskView) {
         }
     }
 
+    fun deleteAllTask() {
+        val deleteAllTaskObservable: Observable<Boolean>
+        try {
+            deleteAllTaskObservable = TaskRepositoryImpl().deleteAllTask()
+            deleteAllTaskObservable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe{
+                        DeleteTaskSubscriber(dataView, null).onNext(it)
+                    }
+        } catch (e: Error) {
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_DELETE_FAIL)
+        }
+    }
+
 
     private class MarkTaskSubscriber(val dataView: DisplayTaskView) : DefaultSubscriber<Task?>() {
         override fun onNext(task: Task?) {
@@ -59,7 +73,7 @@ class DisplayTaskPresenter(private val dataView: DisplayTaskView) {
         }
     }
 
-    private class DeleteTaskSubscriber(val dataView: DisplayTaskView, val task: Task) : DefaultSubscriber<Boolean>() {
+    private class DeleteTaskSubscriber(val dataView: DisplayTaskView, val task: Task?) : DefaultSubscriber<Boolean>() {
         override fun onNext(t: Boolean) {
             dataView.onTaskUpdated(ToastConstants.INFO_TASK_DELETED, task)
             DisplayTaskPresenter(dataView).loadTasks()

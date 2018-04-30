@@ -49,4 +49,11 @@ class TaskRepositoryImpl : TaskRepository {
         }
         return Observable.just(true)
     }
+
+    override fun deleteAllTask() : Observable<Boolean> {
+        realm?.executeTransaction {
+            realm?.deleteAll()
+        }
+        return Observable.just(true)
+    }
 }

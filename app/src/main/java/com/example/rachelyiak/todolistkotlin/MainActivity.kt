@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.rachelyiak.todolistkotlin.R.id.contentFrame
+import com.example.rachelyiak.todolistkotlin.R.layout.activity_main
 import com.example.rachelyiak.todolistkotlin.addedittasks.AddEditTaskFragment
 import com.example.rachelyiak.todolistkotlin.displaytasks.DisplayTaskFragment
 import com.example.rachelyiak.todolistkotlin.tasks.KeyConstants
@@ -20,6 +22,7 @@ object ToastConstants{
     const val ERROR_TASK_DELETE_FAIL = "task delete fail"
     const val INFO_TASK_MARKED = "task marked"
     const val INFO_TASK_DELETED = "task deleted"
+    const val INFO_ALL_TASK_DELETED =" all task deleted"
 }
 object FragmentConstants{
     const val DISPLAY = "display"
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             FragmentConstants.ADD -> {
                 val fragment = AddEditTaskFragment()
 
-                transaction.replace(R.id.contentFrame,fragment,FragmentConstants.ADD)
+                transaction.replace(contentFrame,fragment,FragmentConstants.ADD)
                 transaction.addToBackStack(FragmentConstants.ADD)
             }
             FragmentConstants.EDIT -> {
@@ -65,15 +68,17 @@ class MainActivity : AppCompatActivity() {
                 bundle.putLong(KeyConstants.KEY_ID,task!!.id)
                 bundle.putString(KeyConstants.KEY_NAME,task.name)
                 bundle.putString(KeyConstants.KEY_DESCRIPTION,task.description)
+                bundle.putBoolean(KeyConstants.KEY_HIGHLIGHT, task.highlight)
+                //bundle.putString(KeyConstants.KEY_COLOR_TAG, task.colorTag)
 
                 val fragment = AddEditTaskFragment()
                 fragment.arguments = bundle
 
-                transaction.replace(R.id.contentFrame,fragment,FragmentConstants.EDIT)
+                transaction.replace(contentFrame,fragment,FragmentConstants.EDIT)
                 transaction.addToBackStack(FragmentConstants.EDIT)
             }
             else -> { //default display task frag is shown
-                transaction.replace(R.id.contentFrame, DisplayTaskFragment(),FragmentConstants.DISPLAY)
+                transaction.replace(contentFrame, DisplayTaskFragment(),FragmentConstants.DISPLAY)
                 transaction.addToBackStack(FragmentConstants.DISPLAY)
             }
         }
@@ -92,7 +97,11 @@ class MainActivity : AppCompatActivity() {
             ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE -> Toast.makeText(this, getString(R.string.task_not_saved_try_again), Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_MARK_FAIL -> Toast.makeText(this, getString(R.string.task_not_marked_try_again), Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_DELETE_FAIL -> Toast.makeText(this, getString(R.string.task_not_deleted_try_again), Toast.LENGTH_SHORT).show()
-            ToastConstants.INFO_TASK_DELETED -> Toast.makeText(this, getString(R.string.task_deleted, task!!.name), Toast.LENGTH_SHORT).show()
+            ToastConstants.INFO_TASK_DELETED -> {
+                if (task != null)
+                    Toast.makeText(this, getString(R.string.task_deleted, task.name), Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, getString(R.string.all_task_deleted), Toast.LENGTH_SHORT).show()
+            }
             ToastConstants.INFO_TASK_MARKED -> {
                 if (task!!.completed) Toast.makeText(this, getString(R.string.task_completed, task.name),Toast.LENGTH_SHORT).show()
                 else Toast.makeText(this, getString(R.string.task_ongoing, task.name),Toast.LENGTH_SHORT).show()
@@ -101,27 +110,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // for settings (Commented out till supported)
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//
-//        //TODO delete to only appear when long click happened?
-//        // or should i just keep it there so it is easier to delete?
-//        // and show crosses on all of the tasks, while making floating action button disappear?
-//        return when (item.itemId) {
-//            R.id.action_edit -> {
-//                Log.d("MAIN", "edit is pressed")
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//
-//    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean { //for settings
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        //TODO delete to only appear when long click happened?
+        // or should i just keep it there so it is easier to delete?
+        // and show crosses on all of the tasks, while making floating action button disappear?
+        return when (item.itemId) {
+            R.id.action_delete_all -> {
+                false
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
 }

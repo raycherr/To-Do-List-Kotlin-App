@@ -11,4 +11,6 @@ interface TaskRepository {
     fun markTask(task : Task) : Observable<Task>
 
     fun deleteTask(task: Task) : Observable<Boolean>
+
+    fun deleteAllTask() : Observable<Boolean>
 }

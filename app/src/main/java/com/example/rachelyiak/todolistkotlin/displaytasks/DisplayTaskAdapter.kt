@@ -9,16 +9,13 @@ import android.view.*
 import com.example.rachelyiak.todolistkotlin.FragmentConstants
 import com.example.rachelyiak.todolistkotlin.MainActivity
 import com.example.rachelyiak.todolistkotlin.R
-import com.example.rachelyiak.todolistkotlin.ToastConstants
 import com.example.rachelyiak.todolistkotlin.tasks.Task
 import kotlinx.android.synthetic.main.task_item_row.view.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
 import java.util.ArrayList
 
 class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomViewHolder>() {
 
-    private val mData : ArrayList<Task> = data
+    private var mData : ArrayList<Task> = data
 
     override fun getItemCount(): Int {
         return mData.size
@@ -26,6 +23,10 @@ class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomVi
 
     fun getItem(position : Int) : Task {
         return mData[position]
+    }
+
+    fun setItems(list : List<Task>) {
+        this.mData = list as ArrayList<Task>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -45,8 +46,22 @@ class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomVi
             holder.view.task_title.setTextColor(Color.parseColor("#B0B0B0"))
         }
 
+        if (mData[position].highlight) {
+            holder.view.task_highlight_tag.setBackgroundColor(Color.parseColor("#e8d52c"))
+        }
+
         holder.task = mData[position]
     }
+
+//    private fun convertTagToColor(colorTag: String?) : Int {
+//        return when (colorTag) {
+//            "red" ->  Color.parseColor("#F0E68C")//Color.parseColor("#ff4444")
+//            "orange" -> Color.parseColor("#3CB371") //Color.parseColor("#ff8800")
+//            "blue" -> Color.parseColor("#448aff")
+//            "purple" -> Color.parseColor("#aa66cc")
+//            else -> Color.TRANSPARENT
+//        }
+//    }
 }
 
 class CustomViewHolder(val view : View, var task : Task? = null) : RecyclerView.ViewHolder(view) {
@@ -59,7 +74,7 @@ class CustomViewHolder(val view : View, var task : Task? = null) : RecyclerView.
             }
         }
         view.setOnLongClickListener {
-            Log.d("Hello",task!!.name)
+            Log.d("Hello", task!!.name)
 
             val visibility = view.button_delete.visibility
 
@@ -69,12 +84,23 @@ class CustomViewHolder(val view : View, var task : Task? = null) : RecyclerView.
             true
         }
         view.button_delete.setOnClickListener {
+            view.button_delete.visibility = View.GONE
             DisplayTaskFragment().deleteTask(task!!, view)
         }
 
-        view.task_checkbox.setOnClickListener({
+        view.task_checkbox.setOnClickListener {
             DisplayTaskFragment().completeTask(task!!, view)
-        })
-    }
+        }
 
+
+//        view.setOnDragListener(View.OnDragListener { view, event ->
+//            if (event.action == DragEvent.) {
+//                // do something for drop
+//                (event.localState as View).visibility = View.INVISIBLE
+//            }
+//            return@OnDragListener true
+//        })
+
+
+    }
 }
