@@ -12,4 +12,5 @@ open class Task(@PrimaryKey var id : Long = 0,
     var completed : Boolean = false
     var highlight: Boolean = false
     var colorTag : String? = null
+    var orderId: Long = 0
 }

@@ -18,11 +18,10 @@ import io.realm.Realm
 object ToastConstants{
     const val ERROR_TASK_NAME_EMPTY = "task name empty"
     const val ERROR_TASK_NOT_SAVED_TO_DATABASE = "task not saved to database"
-    const val ERROR_TASK_MARK_FAIL = "task mark fail"
+    const val ERROR_TASK_UPDATE_FAIL = "task mark fail"
     const val ERROR_TASK_DELETE_FAIL = "task delete fail"
     const val INFO_TASK_MARKED = "task marked"
     const val INFO_TASK_DELETED = "task deleted"
-    const val INFO_ALL_TASK_DELETED =" all task deleted"
 }
 object FragmentConstants{
     const val DISPLAY = "display"
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         when (toastSummary) {
             ToastConstants.ERROR_TASK_NAME_EMPTY -> Toast.makeText(this, getString(R.string.task_name_cannot_be_empty), Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_NOT_SAVED_TO_DATABASE -> Toast.makeText(this, getString(R.string.task_not_saved_try_again), Toast.LENGTH_SHORT).show()
-            ToastConstants.ERROR_TASK_MARK_FAIL -> Toast.makeText(this, getString(R.string.task_not_marked_try_again), Toast.LENGTH_SHORT).show()
+            ToastConstants.ERROR_TASK_UPDATE_FAIL -> Toast.makeText(this, getString(R.string.task_not_updated_try_again), Toast.LENGTH_SHORT).show()
             ToastConstants.ERROR_TASK_DELETE_FAIL -> Toast.makeText(this, getString(R.string.task_not_deleted_try_again), Toast.LENGTH_SHORT).show()
             ToastConstants.INFO_TASK_DELETED -> {
                 if (task != null)

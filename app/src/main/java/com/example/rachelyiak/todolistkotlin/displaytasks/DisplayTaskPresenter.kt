@@ -24,7 +24,7 @@ class DisplayTaskPresenter(private val dataView: DisplayTaskView) {
                         MarkTaskSubscriber(dataView).onNext(it)
                     }
         } catch (e: Error) {
-            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_MARK_FAIL)
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_UPDATE_FAIL)
         }
     }
 
@@ -56,6 +56,13 @@ class DisplayTaskPresenter(private val dataView: DisplayTaskView) {
         }
     }
 
+    fun swapPosition(fromPositionTask: Task, toPositionTask: Task) {
+        try {
+            TaskRepositoryImpl().swapPosition(fromPositionTask, toPositionTask)
+        } catch (e: Error) {
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_UPDATE_FAIL)
+        }
+    }
 
     private class MarkTaskSubscriber(val dataView: DisplayTaskView) : DefaultSubscriber<Task?>() {
         override fun onNext(task: Task?) {
@@ -69,7 +76,7 @@ class DisplayTaskPresenter(private val dataView: DisplayTaskView) {
         }
 
         override fun onError(t: Throwable?) {
-            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_MARK_FAIL)
+            dataView.onUpdateTaskFail(ToastConstants.ERROR_TASK_UPDATE_FAIL)
         }
     }
 

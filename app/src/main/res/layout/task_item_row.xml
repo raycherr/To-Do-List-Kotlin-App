@@ -43,16 +43,16 @@
         />
 
     <Button
-        android:id="@+id/button_delete"
-        android:layout_width="32dp"
+        android:id="@+id/button_reorder"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/task_checkbox"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/task_checkbox"
-        android:background="@android:drawable/ic_menu_delete"
+        android:background="@drawable/ic_reorder_list"
         android:padding="20dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 
     <!--<ImageView-->

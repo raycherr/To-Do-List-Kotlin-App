@@ -25,7 +25,7 @@
     <!-- Toast Strings -->
     <string name="task_name_cannot_be_empty">task name cannot be empty</string>
     <string name="task_not_saved_try_again">task cannot be saved, try again later</string>
-    <string name="task_not_marked_try_again">task is not marked, try again later</string>
+    <string name="task_not_updated_try_again">task is not updated, try again later</string>
     <string name="task_not_deleted_try_again">task is not deleted, try again later</string>
     <string name="task_deleted">Task: \'%s\' is deleted</string>
     <string name="all_task_deleted">All tasks are deleted</string>

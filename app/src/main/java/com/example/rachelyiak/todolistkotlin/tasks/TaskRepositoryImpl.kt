@@ -16,6 +16,7 @@ class TaskRepositoryImpl : TaskRepository {
                 nextId = realm?.where(Task::class.java)?.max(KeyConstants.KEY_ID).toString().toInt() +1
             }
             task.id = nextId.toLong()
+            task.orderId = task.id
         }
 
         //TODO consider changing to RxJava but it works in synchronous now?
@@ -24,9 +25,8 @@ class TaskRepositoryImpl : TaskRepository {
         }
     }
 
-
     override fun retrieveAllTask(): List<Task> {
-        val taskRealmResults = realm?.where(Task::class.java)?.findAll()?.sort(KeyConstants.KEY_ID)
+        val taskRealmResults = realm?.where(Task::class.java)?.findAll()?.sort(KeyConstants.KEY_ORDER_ID)
         Log.d("HELLO", taskRealmResults.toString())
         return realm?.copyFromRealm(taskRealmResults!!) as List<Task>
     }
@@ -55,5 +55,18 @@ class TaskRepositoryImpl : TaskRepository {
             realm?.deleteAll()
         }
         return Observable.just(true)
+    }
+
+    override fun swapPosition(fromPositionTask: Task, toPositionTask: Task) {
+        val taskMoved = realm?.where(Task::class.java)?.equalTo(KeyConstants.KEY_ID, fromPositionTask.id)?.findFirst()
+        val taskMoved2 = realm?.where(Task::class.java)?.equalTo(KeyConstants.KEY_ID, toPositionTask.id)?.findFirst()
+
+        realm?.executeTransaction {
+            val positionTemp = taskMoved?.orderId
+            taskMoved?.orderId = taskMoved2?.orderId!!
+            taskMoved2.orderId = positionTemp!!
+            val taskMovedList = arrayListOf(taskMoved, taskMoved2)
+            realm?.copyToRealmOrUpdate(taskMovedList)
+        }
     }
 }

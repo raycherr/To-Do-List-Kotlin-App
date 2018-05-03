@@ -13,4 +13,6 @@ interface TaskRepository {
     fun deleteTask(task: Task) : Observable<Boolean>
 
     fun deleteAllTask() : Observable<Boolean>
+
+    fun swapPosition(fromPositionTask: Task, toPositionTask: Task)
 }

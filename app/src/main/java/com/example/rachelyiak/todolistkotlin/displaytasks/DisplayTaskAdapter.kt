@@ -4,28 +4,31 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
-import android.util.Log
 import android.view.*
 import com.example.rachelyiak.todolistkotlin.FragmentConstants
 import com.example.rachelyiak.todolistkotlin.MainActivity
 import com.example.rachelyiak.todolistkotlin.R
+import com.example.rachelyiak.todolistkotlin.displaytasks.itemTouchHelper.ItemTouchHelperAdapter
 import com.example.rachelyiak.todolistkotlin.tasks.Task
 import kotlinx.android.synthetic.main.task_item_row.view.*
-import java.util.ArrayList
+import java.util.*
+import com.example.rachelyiak.todolistkotlin.displaytasks.itemTouchHelper.OnStartDragListener
 
-class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomViewHolder>() {
 
-    private var mData : ArrayList<Task> = data
+class DisplayTaskAdapter(data: ArrayList<Task>, dragStartListener: OnStartDragListener) : RecyclerView.Adapter<CustomViewHolder>(), ItemTouchHelperAdapter {
+
+    private var mData: ArrayList<Task> = data
+    private var mDragStartListener: OnStartDragListener = dragStartListener
 
     override fun getItemCount(): Int {
         return mData.size
     }
 
-    fun getItem(position : Int) : Task {
+    fun getItem(position: Int): Task {
         return mData[position]
     }
 
-    fun setItems(list : List<Task>) {
+    fun setItems(list: List<Task>) {
         this.mData = list as ArrayList<Task>
     }
 
@@ -49,8 +52,9 @@ class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomVi
         if (mData[position].highlight) {
             holder.view.task_highlight_tag.setBackgroundColor(Color.parseColor("#e8d52c"))
         }
-
         holder.task = mData[position]
+
+        holder.dragListener = mDragStartListener
     }
 
 //    private fun convertTagToColor(colorTag: String?) : Int {
@@ -62,9 +66,28 @@ class DisplayTaskAdapter(data : ArrayList<Task>) : RecyclerView.Adapter<CustomVi
 //            else -> Color.TRANSPARENT
 //        }
 //    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int, viewHolder: RecyclerView.ViewHolder) {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(mData, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(mData, i, i - 1)
+            }
+        }
+        DisplayTaskFragment().swapPosition(mData[fromPosition], mData[toPosition], viewHolder.itemView) //swapping using tasks instead of position as position != orderId exactly
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int, viewHolder: RecyclerView.ViewHolder) {
+        DisplayTaskFragment().deleteTask(mData[position], viewHolder.itemView)
+        notifyItemRemoved(position);
+    }
 }
 
-class CustomViewHolder(val view : View, var task : Task? = null) : RecyclerView.ViewHolder(view) {
+class CustomViewHolder(val view: View, var task: Task? = null, var dragListener: OnStartDragListener? = null) : RecyclerView.ViewHolder(view) {
 
     init {
         val context = view.context
@@ -73,34 +96,15 @@ class CustomViewHolder(val view : View, var task : Task? = null) : RecyclerView.
                 (context as MainActivity).replaceWithFrag(FragmentConstants.EDIT, task)
             }
         }
-        view.setOnLongClickListener {
-            Log.d("Hello", task!!.name)
-
-            val visibility = view.button_delete.visibility
-
-            if (visibility == View.VISIBLE) {
-                view.button_delete.visibility = View.GONE
-            } else view.button_delete.visibility = View.VISIBLE
-            true
-        }
-        view.button_delete.setOnClickListener {
-            view.button_delete.visibility = View.GONE
-            DisplayTaskFragment().deleteTask(task!!, view)
-        }
 
         view.task_checkbox.setOnClickListener {
             DisplayTaskFragment().completeTask(task!!, view)
         }
 
-
-//        view.setOnDragListener(View.OnDragListener { view, event ->
-//            if (event.action == DragEvent.) {
-//                // do something for drop
-//                (event.localState as View).visibility = View.INVISIBLE
-//            }
-//            return@OnDragListener true
-//        })
-
-
+        view.button_reorder.setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN)
+               dragListener?.onStartDrag(this)
+            false
+        }
     }
 }
