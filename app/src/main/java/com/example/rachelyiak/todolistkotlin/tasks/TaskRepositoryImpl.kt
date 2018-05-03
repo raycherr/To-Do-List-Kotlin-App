@@ -16,7 +16,9 @@ class TaskRepositoryImpl : TaskRepository {
                 nextId = realm?.where(Task::class.java)?.max(KeyConstants.KEY_ID).toString().toInt() +1
             }
             task.id = nextId.toLong()
-            task.orderId = task.id
+            if (realm?.where(Task::class.java)?.max(KeyConstants.KEY_ORDER_ID) != null) {
+                task.orderId = realm?.where(Task::class.java)?.max(KeyConstants.KEY_ORDER_ID).toString().toLong() +1
+            }
         }
 
         //TODO consider changing to RxJava but it works in synchronous now?
