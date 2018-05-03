@@ -24,6 +24,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
     lateinit var taskDescription : TextView
     private lateinit var saveBtn : Button
     private var taskId : Long? = null
+    private var taskOrderId : Long? = null
     lateinit var taskHighlight : Switch
 
 //    lateinit var taskColorTagGroup : RadioGroup
@@ -56,6 +57,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
             taskName.text = bundle.getString(KeyConstants.KEY_NAME)
             taskDescription.text = bundle.getString(KeyConstants.KEY_DESCRIPTION)
             taskHighlight.isChecked = bundle.getBoolean(KeyConstants.KEY_HIGHLIGHT)
+            taskOrderId = bundle.getLong(KeyConstants.KEY_ORDER_ID)
         }
 
         val saveTaskObservable = saveTaskButtonClickObservable(taskId)
@@ -86,6 +88,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskView {
                     val taskTemp = Task(name = taskName.text.toString(), description = taskDescription.text.toString())
                     taskTemp.id = taskId ?: 0
                     taskTemp.highlight = taskHighlight.isChecked
+                    taskTemp.orderId = taskOrderId ?: 0
                     emitter.onNext(taskTemp)
                 }
             }

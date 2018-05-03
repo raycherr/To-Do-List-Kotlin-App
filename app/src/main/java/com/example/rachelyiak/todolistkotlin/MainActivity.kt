@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                 bundle.putString(KeyConstants.KEY_NAME,task.name)
                 bundle.putString(KeyConstants.KEY_DESCRIPTION,task.description)
                 bundle.putBoolean(KeyConstants.KEY_HIGHLIGHT, task.highlight)
+                bundle.putLong(KeyConstants.KEY_ORDER_ID,task.orderId)
                 //bundle.putString(KeyConstants.KEY_COLOR_TAG, task.colorTag)
 
                 val fragment = AddEditTaskFragment()
