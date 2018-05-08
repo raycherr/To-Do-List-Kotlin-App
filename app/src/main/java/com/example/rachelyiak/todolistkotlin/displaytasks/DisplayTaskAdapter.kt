@@ -41,17 +41,22 @@ class DisplayTaskAdapter(data: ArrayList<Task>, dragStartListener: OnStartDragLi
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.view.task_title.text = mData[position].name
 
+        holder.view.task_checkbox.isChecked = mData[position].completed
         if (mData[position].completed) {
-            holder.view.task_checkbox.isChecked = mData[position].completed
             val taskTitleStrikethrough = SpannableString(mData[position].name)
             taskTitleStrikethrough.setSpan(StrikethroughSpan(), 0, taskTitleStrikethrough.length, 0)
             holder.view.task_title.text = taskTitleStrikethrough
             holder.view.task_title.setTextColor(Color.parseColor("#B0B0B0"))
+        } else {
+            holder.view.task_title.setTextColor(Color.parseColor("#757575"))
         }
 
         if (mData[position].highlight) {
             holder.view.task_highlight_tag.setBackgroundColor(Color.parseColor("#e8d52c"))
+        } else {
+            holder.view.task_highlight_tag.setBackgroundColor(Color.TRANSPARENT)
         }
+
         holder.task = mData[position]
 
         holder.dragListener = mDragStartListener
@@ -78,6 +83,7 @@ class DisplayTaskAdapter(data: ArrayList<Task>, dragStartListener: OnStartDragLi
             }
         }
         DisplayTaskFragment().swapPosition(mData[fromPosition], mData[toPosition], viewHolder.itemView) //swapping using tasks instead of position as position != orderId exactly
+        //TODO reload view after moving (else when editing after tap, task will still have old orderId)
         notifyItemMoved(fromPosition, toPosition)
     }
 
