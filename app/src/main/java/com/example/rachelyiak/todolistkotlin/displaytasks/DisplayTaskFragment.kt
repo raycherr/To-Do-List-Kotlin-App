@@ -15,6 +15,7 @@ import com.example.rachelyiak.todolistkotlin.R.layout.fragment_display_task_recy
 import com.example.rachelyiak.todolistkotlin.displaytasks.itemTouchHelper.ItemTouchHelperAdapter
 import com.example.rachelyiak.todolistkotlin.displaytasks.itemTouchHelper.OnStartDragListener
 import com.example.rachelyiak.todolistkotlin.displaytasks.itemTouchHelper.SimpleItemTouchHelperCallback
+import com.example.rachelyiak.todolistkotlin.tasks.TaskRepositoryImpl
 import kotlinx.android.synthetic.main.fragment_display_task_recycler_view.view.*
 import java.util.ArrayList
 
@@ -24,6 +25,8 @@ class DisplayTaskFragment : Fragment(), DisplayTaskView, OnStartDragListener {
     private lateinit var addTaskButton : FloatingActionButton
     var data : ArrayList<Task> = arrayListOf()
     private lateinit var mTouchHelper: ItemTouchHelper
+
+    private val taskRepository = TaskRepositoryImpl()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,7 +56,7 @@ class DisplayTaskFragment : Fragment(), DisplayTaskView, OnStartDragListener {
     }
 
     private fun loadTaskList() {
-        DisplayTaskPresenter(this).loadTasks()
+        DisplayTaskPresenter(this, taskRepository).loadTasks()
     }
 
     override fun onLoadTaskDisplay(list: List<Task>) {
@@ -75,22 +78,22 @@ class DisplayTaskFragment : Fragment(), DisplayTaskView, OnStartDragListener {
 
     fun completeTask(task: Task, view: View){
         taskRecyclerView = view.parent as RecyclerView
-        DisplayTaskPresenter(this).markTask(task)
+        DisplayTaskPresenter(this, taskRepository).markTask(task)
     }
 
     fun swapPosition(fromPositionTask: Task, toPositionTask: Task, view: View) {
         taskRecyclerView = view.parent as RecyclerView
-        DisplayTaskPresenter(this).swapPosition(fromPositionTask, toPositionTask)
+        DisplayTaskPresenter(this, taskRepository).swapPosition(fromPositionTask, toPositionTask)
     }
 
     fun deleteTask(task: Task, view: View){
         taskRecyclerView = view.parent as RecyclerView
-        DisplayTaskPresenter(this).deleteTask(task)
+        DisplayTaskPresenter(this, taskRepository).deleteTask(task)
     }
 
     private fun deleteAllTask() {
         taskRecyclerView = view?.findViewById(android.R.id.list) as RecyclerView
-        DisplayTaskPresenter(this).deleteAllTask()
+        DisplayTaskPresenter(this, taskRepository).deleteAllTask()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

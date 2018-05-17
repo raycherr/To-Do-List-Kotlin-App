@@ -37,8 +37,10 @@ class TaskRepositoryImpl : TaskRepository {
         val taskRealmObj = realm?.where(Task::class.java)?.equalTo(KeyConstants.KEY_ID,task.id)?.findFirst()
 
         realm?.executeTransaction {
-            taskRealmObj?.completed = !taskRealmObj!!.completed
-            realm?.copyToRealmOrUpdate(taskRealmObj)
+            if (taskRealmObj != null) {
+                taskRealmObj.completed = !taskRealmObj.completed
+                realm?.copyToRealmOrUpdate(taskRealmObj)
+            }
         }
         return Observable.just(taskRealmObj)
     }

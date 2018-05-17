@@ -31,15 +31,25 @@ object FragmentConstants{
 
 class MainActivity : AppCompatActivity() {
 
+    private var INSTANCE: MainActivity? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        replaceWithFrag() // default fragment
-
         Realm.init(this)
+
+        replaceWithFrag() // default fragment
+        
+        if (INSTANCE == null)
+            INSTANCE = this
+
+    }
+
+    fun get(): MainActivity {
+        return INSTANCE!!
     }
 
     override fun onBackPressed() {
